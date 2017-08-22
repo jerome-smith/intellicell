@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "242724969831",
-    "firebase_url": "https://intellicell-db341.firebaseio.com",
-    "project_id": "intellicell-db341",
-    "storage_bucket": "intellicell-db341.appspot.com"
+    "project_number": "1043485647586",
+    "firebase_url": "https://intellicel-c9a74.firebaseio.com",
+    "project_id": "intellicel-c9a74",
+    "storage_bucket": "intellicel-c9a74.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:242724969831:android:0dee3958bb02b42d",
+        "mobilesdk_app_id": "1:1043485647586:android:0dee3958bb02b42d",
         "android_client_info": {
           "package_name": "com.intellicell"
         }
       },
       "oauth_client": [
         {
-          "client_id": "242724969831-fk7h4ac0t3p8nqgog33ojj88r68j246j.apps.googleusercontent.com",
+          "client_id": "1043485647586-b0jb92buh9mopfchakkkfa284s9vpndn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intellicell",
+            "certificate_hash": "cc2ba91ee151bb12f497d1508b5f05b2ff822e6b"
+          }
+        },
+        {
+          "client_id": "1043485647586-nfkuent4skuseelk5ee9sgepa4f7p1be.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCMG7uXOJVlahgjJbX-JB1GwmItuwbln2A"
+          "current_key": "AIzaSyBCurB9Z235hZlt07lPcqhemL89O5CuarA"
         }
       ],
       "services": {
@@ -29,8 +37,20 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043485647586-nfkuent4skuseelk5ee9sgepa4f7p1be.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1043485647586-v0k5jd48md4n0u8l8i163eqg9r9ootj4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.intellicell.ios"
+              }
+            }
+          ]
         },
         "ads_service": {
           "status": 2
