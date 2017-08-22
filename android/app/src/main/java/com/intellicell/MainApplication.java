@@ -3,6 +3,10 @@ package com.intellicell;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.reactnative.photoview.PhotoViewPackage;
+import cl.json.RNSharePackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.burnweb.rnsimplealertdialog.RNSimpleAlertDialogPackage;
@@ -27,6 +31,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceInfo(),
+            new PhotoViewPackage(),
+            new RNSharePackage(),
+            new LinearGradientPackage(),
             new FIRMessagingPackage(),
             new VectorIconsPackage(),
             new RNSimpleAlertDialogPackage(),

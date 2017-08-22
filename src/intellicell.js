@@ -159,12 +159,12 @@ export default function native (platform) {
   class Intellicell extends Component {
     componentDidMount() {
         firebase.initializeApp({
-          apiKey: "AIzaSyCqWCIuaGsAj_uSWWoAkwoVFIsor2g55ec",
-          authDomain: "intellicel-c9a74.firebaseapp.com",
-          databaseURL: "https://intellicel-c9a74.firebaseio.com",
-          projectId: "intellicel-c9a74",
-          storageBucket: "intellicel-c9a74.appspot.com",
-          messagingSenderId: "1043485647586"
+    apiKey: "AIzaSyBCwXXZT4xdbivZWpiFQFPKrdV2jzo5f5g",
+    authDomain: "intellicell-db341.firebaseapp.com",
+    databaseURL: "https://intellicell-db341.firebaseio.com",
+    projectId: "intellicell-db341",
+    storageBucket: "intellicell-db341.appspot.com",
+    messagingSenderId: "242724969831"
         });
          this.loadedFire = firebase;
     }

@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "1043485647586",
-    "firebase_url": "https://intellicel-c9a74.firebaseio.com",
-    "project_id": "intellicel-c9a74",
-    "storage_bucket": "intellicel-c9a74.appspot.com"
+    "project_number": "242724969831",
+    "firebase_url": "https://intellicell-db341.firebaseio.com",
+    "project_id": "intellicell-db341",
+    "storage_bucket": "intellicell-db341.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1043485647586:android:c5069d6e95d488ca",
+        "mobilesdk_app_id": "1:242724969831:android:0dee3958bb02b42d",
         "android_client_info": {
           "package_name": "com.intellicell"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1043485647586-nfkuent4skuseelk5ee9sgepa4f7p1be.apps.googleusercontent.com",
+          "client_id": "242724969831-fk7h4ac0t3p8nqgog33ojj88r68j246j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBCurB9Z235hZlt07lPcqhemL89O5CuarA"
+          "current_key": "AIzaSyCMG7uXOJVlahgjJbX-JB1GwmItuwbln2A"
         }
       ],
       "services": {

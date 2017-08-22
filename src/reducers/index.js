@@ -8,13 +8,15 @@
 /**
  * ## Imports
  *
- * our 4 reducers
+ * our 7 reducers
  */
 import auth from './auth/authReducer'
 import device from './device/deviceReducer'
 import global from './global/globalReducer'
 import profile from './profile/profileReducer'
-
+import chatroom from './chat/chatroom'
+import user from './chat/user'
+import messages from  './chat/messages'
 import { combineReducers } from 'redux'
 
 /**
@@ -27,7 +29,9 @@ const rootReducer = combineReducers({
   auth,
   device,
   global,
-  profile
+  profile,
+  chatroom,
+  user
 })
 
 export default rootReducer
