@@ -136,6 +136,7 @@ export const checkUserExists = () => {
 }
 
 const startChatting = function (dispatch) {
+    console.log('AJAJJAAJAJAJAJAJAJAJAJAJAJAJAJAJ')
     dispatch(userAuthorized());
     dispatch(fetchMessages());
 
