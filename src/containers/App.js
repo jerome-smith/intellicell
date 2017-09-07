@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import * as authActions from '../reducers/auth/authActions'
 import * as deviceActions from '../reducers/device/deviceActions'
 import * as globalActions from '../reducers/global/globalActions'
+import * as chatActions from '../reducers/chat/chatActions'
 
 /**
  * The components we need from ReactNative
@@ -62,7 +63,7 @@ function mapStateToProps (state) {
  */
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({ ...authActions, ...deviceActions, ...globalActions }, dispatch)
+    actions: bindActionCreators({ ...authActions, ...deviceActions, ...globalActions, ...chatActions }, dispatch)
   }
 }
 
@@ -103,7 +104,7 @@ class App extends Component {
             () => {
               this.props.actions.getSessionToken()
             },
-            2500
+            0
         )
   }
 

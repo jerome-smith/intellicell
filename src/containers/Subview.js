@@ -93,7 +93,9 @@ import Translations from '../lib/Translations'
  * ## Subview class
  */
 class Subview extends Component {
+
     render() {
+      console.log(this,'this is the props')
         return (
           <ChatUI/>
         );

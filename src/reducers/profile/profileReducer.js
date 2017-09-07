@@ -75,13 +75,27 @@ export default function profileReducer (state = initialState, action) {
      * Validate the data to make sure it's all good and someone didn't
      * mung it up through some other mechanism
      */
+
+
     case GET_PROFILE_SUCCESS:
       nextProfileState = state.setIn(['form', 'isFetching'], false)
-      .setIn(['form', 'fields', 'username'], action.payload.firstname)
+      .setIn(['form', 'fields', 'username'], action.payload.username)
+      .setIn(['form', 'fields', 'firstname'], action.payload.firstname)
+      .setIn(['form', 'fields', 'lastname'], action.payload.lastname)
+      .setIn(['form', 'fields', 'bankname'], action.payload.bankname)
+      .setIn(['form', 'fields', 'accountnumber'], action.payload.accountnumber)
+      .setIn(['form', 'fields', 'accounttype'], action.payload.accounttype)
+      .setIn(['form', 'fields', 'branchcode'], action.payload.branchcode)
       .setIn(['form', 'fields', 'email'], action.payload.email)
       .setIn(['form', 'fields', 'emailVerified'],
              action.payload.emailVerified)
-      .setIn(['form', 'originalProfile', 'username'], action.payload.firstname)
+      .setIn(['form', 'originalProfile', 'username'], action.payload.username)
+      .setIn(['form', 'originalProfile', 'firstname'], action.payload.firstname)
+      .setIn(['form', 'originalProfile', 'lastname'], action.payload.lastname)
+      .setIn(['form', 'originalProfile', 'bankname'], action.payload.bankname)
+      .setIn(['form', 'originalProfile', 'accountnumber'], action.payload.accountnumber)
+      .setIn(['form', 'originalProfile', 'accounttype'], action.payload.accounttype)
+      .setIn(['form', 'originalProfile', 'branchcode'], action.payload.branchcode)
       .setIn(['form', 'originalProfile', 'email'], action.payload.email)
       .setIn(['form', 'originalProfile', 'emailVerified'], action.payload.emailVerified)
       .setIn(['form', 'originalProfile', 'objectId'], action.payload.objectId)
@@ -97,8 +111,20 @@ export default function profileReducer (state = initialState, action) {
      */
     case LOGOUT_SUCCESS:
       nextProfileState = state.setIn(['form', 'fields', 'username'], '')
+      .setIn(['form', 'fields', 'firstname'], '')
+      .setIn(['form', 'fields', 'lastname'], '')
+      .setIn(['form', 'fields', 'bankname'], '')
+      .setIn(['form', 'fields', 'accountnumber'], '')
+      .setIn(['form', 'fields', 'accounttype'], '')
+      .setIn(['form', 'fields', 'branchcode'], '')
       .setIn(['form', 'fields', 'email'], '')
       .setIn(['form', 'fields', 'emailVerified'], false)
+      .setIn(['form', 'originalProfile', 'firstname'], '')
+      .setIn(['form', 'originalProfile', 'lastname'], '')
+      .setIn(['form', 'originalProfile', 'bankname'], '')
+      .setIn(['form', 'originalProfile', 'accountnumber'], '')
+      .setIn(['form', 'originalProfile', 'accounttype'], '')
+      .setIn(['form', 'originalProfile', 'branchcode'], '')
       .setIn(['form', 'originalProfile', 'username'], '')
       .setIn(['form', 'originalProfile', 'email'], '')
       .setIn(['form', 'originalProfile', 'emailVerified'], false)
@@ -149,6 +175,18 @@ export default function profileReducer (state = initialState, action) {
           .setIn(['form', 'originalProfile',
                   'username'], profile.originalProfile.username)
           .setIn(['form', 'originalProfile',
+                  'firstname'], profile.originalProfile.firstname)
+          .setIn(['form', 'originalProfile',
+                  'lastname'], profile.originalProfile.lastname)
+          .setIn(['form', 'originalProfile',
+                  'bankname'], profile.originalProfile.bankname)
+          .setIn(['form', 'originalProfile',
+                  'accountnumber'], profile.originalProfile.accountnumber)
+          .setIn(['form', 'originalProfile',
+                  'accounttype'], profile.originalProfile.accounttype)
+          .setIn(['form', 'originalProfile',
+                  'branchcode'], profile.originalProfile.branchcode)
+          .setIn(['form', 'originalProfile',
                   'email'], profile.originalProfile.email)
           .setIn(['form', 'originalProfile',
                   'objectId'], profile.originalProfile.objectId)
@@ -156,6 +194,18 @@ export default function profileReducer (state = initialState, action) {
                   'emailVerified'], profile.originalProfile.emailVerified)
           .setIn(['form', 'fields',
                   'username'], profile.fields.username)
+          .setIn(['form', 'originalProfile',
+                  'firstname'], profile.fields.firstname)
+          .setIn(['form', 'originalProfile',
+                  'lastname'], profile.fields.lastname)
+          .setIn(['form', 'originalProfile',
+                  'bankname'], profile.fields.bankname)
+          .setIn(['form', 'originalProfile',
+                  'accountnumber'], profile.fields.accountnumber)
+          .setIn(['form', 'originalProfile',
+                  'accounttype'], profile.fields.accounttype)
+          .setIn(['form', 'originalProfile',
+                  'branchcode'], profile.fields.branchcode)
           .setIn(['form', 'fields',
                   'usernameHasError'], profile.fields.usernameHasError)
           .setIn(['form', 'fields',

@@ -52,6 +52,13 @@ const {
 // const BackendFactory = require('../../lib/BackendFactory').default
 import firebase from 'firebase'
 
+import {Platform} from 'react-native'
+
+import DeviceInfo from 'react-native-device-info';
+
+import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult, RemoteNotificationResult } from 'react-native-fcm';
+
+
 import {Actions} from 'react-native-router-flux'
 
 import {appAuthToken} from '../../lib/AppAuthToken'
@@ -131,16 +138,13 @@ export function logout () {
     return appAuthToken.getSessionToken()
 
       .then((token) => {
-        return BackendFactory(token).logout()
+        firebase.auth().signOut().then(() => {
+          dispatch(loginState())
+          dispatch(logoutSuccess())
+          dispatch(deleteSessionToken())
+          Actions.InitialLoginForm()
+        })
       })
-
-      .then(() => {
-        dispatch(loginState())
-        dispatch(logoutSuccess())
-        dispatch(deleteSessionToken())
-        Actions.InitialLoginForm()
-      })
-
       .catch((error) => {
         dispatch(loginState())
         dispatch(logoutFailure(error))
@@ -278,31 +282,32 @@ export function saveSessionToken (json) {
 export function signup (username, email, password) {
   return dispatch => {
     dispatch(signupRequest())
-    return BackendFactory().signup({
-      username: username,
-      email: email,
-      password: password
-    })
-
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((json) => {
-        return saveSessionToken(
-          Object.assign({}, json,
-            { username: username,
-              email: email
-            })
-          )
-          .then(() => {
-            dispatch(signupSuccess(
+        console.log(json,'JA JAY SON');
+          let m  = firebase.auth().currentUser;
+      firebase.database().ref(`/users/${m.uid}/people`)
+        .push({email:email, password:password})
+          .then(function() {
+            saveSessionToken(
               Object.assign({}, json,
-               { username: username,
-                 email: email
-               })
-            ))
-            dispatch(logoutState())
-            // navigate to Tabbar
-            Actions.Tabbar()
+                { username: username,
+                  email: email
+                })
+              )
+              .then(() => {
+                dispatch(signupSuccess(
+                  Object.assign({}, json,
+                   { username: username,
+                     email: email
+                   })
+                ))
+                dispatch(logoutState())
+                // navigate to Tabbar
+                Actions.Tabbar()
+              })
           })
-      })
+        })
       .catch((error) => {
         dispatch(signupFailure(error))
       })
@@ -347,17 +352,102 @@ export function login (email, password) {
  return (dispatch) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(obj) {
-         dispatch(loginSuccess(obj.toJSON()))
-          // navigate to Tabbar
-          Actions.Tabbar()
-          dispatch(logoutState())
+      // const { name, avatar } = {
+        //`/users/${m.uid}/people
+       let m  = firebase.auth().currentUser;
+      firebase.database().ref(`/users/${m.uid}/people/${DeviceInfo.getUniqueID()}`)
+        .set({ email: email,
+               avatar:'avatar'
+             });
+      // };
+      dispatch(startChatting(dispatch,obj));
+
+
     })
     .catch((error) => {
       dispatch(loginFailure(error))
     });
   }
 }
+export const userAuthorized = () => ({
+    type: 'USER_AUTHORIZED'
+});
+export const receiveMessages = (messages) => {
+  console.log(messages,'recieve messages');
+    return function (dispatch) {
+        Object.values(messages).forEach(msg => dispatch(addMessage(msg)));
 
+        dispatch(receivedMessages());
+    }
+};
+export const addMessage = (msg) => ({
+    type: 'ADD_MESSAGE',
+    ...msg
+});
+export const fetchMessages = () => {
+  console.log('snapshot snapshot ')
+    return function (dispatch) {
+        dispatch(startFetchingMessages());
+
+        firebase.database()
+                .ref('messages')
+                .orderByKey()
+                .limitToLast(20)
+                .on('value', (snapshot) => {
+                  console.log(snapshot.val(),'snapshot snapshot ')
+                    // gets around Redux panicking about actions in reducers
+                    setTimeout(() => {
+                        const messages = snapshot.val() || [];
+
+                        dispatch(receiveMessages(messages))
+                    }, 0);
+                });
+    }
+};
+export const startFetchingMessages = () => ({
+    type: 'START_FETCHING_MESSAGES'
+});
+export function startChatting (dispatch, obj) {
+    console.log('AJAJJAAJAJAJAJAJAJAJAJAJAJAJAJAJ')
+    //dispatch(userAuthorized());
+    dispatch(fetchMessages());
+
+    FCM.requestPermissions();
+    FCM.getFCMToken().then(token => {
+           console.log(token, 'JaJA die token')
+       });
+    FCM.subscribeToTopic('secret-chatroom');
+    //FCM.subscribeToTopic('intellicell-chatroom');
+
+    FCM.on(FCMEvent.Notification, async (notif) => {
+        console.log(notif, 'amI notifidedddd');
+
+        if (Platform.OS === 'ios') {
+            switch (notif._notificationType) {
+                case NotificationType.Remote:
+                    notif.finish(RemoteNotificationResult.NewData); //other types available: RemoteNotificationResult.NewData, RemoteNotificationResult.ResultFailed
+                    break;
+                case NotificationType.NotificationResponse:
+                    notif.finish();
+                    break;
+                case NotificationType.WillPresent:
+                    notif.finish(WillPresentNotificationResult.All); //other types available: WillPresentNotificationResult.None
+                    break;
+              }
+        }
+    });
+
+    FCM.on(FCMEvent.RefreshToken, token => {
+        console.log(token);
+    });
+          dispatch(loginSuccess(obj.toJSON()))
+          // navigate to Tabbar
+
+
+                Actions.Tabbar()
+
+          dispatch(logoutState())
+}
 /**
  * ## ResetPassword actions
  */
@@ -394,7 +484,7 @@ export function resetPasswordFailure (error) {
 export function resetPassword (email) {
   return dispatch => {
     dispatch(resetPasswordRequest())
-    return BackendFactory().resetPassword({
+    return firebase.auth().resetPassword({
       email: email
     })
       .then(() => {

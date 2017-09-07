@@ -23,6 +23,12 @@ console.log(this, 'this is is this in the profileInitial state')
 const Form = Record({
   originalProfile: new (Record({
     username: null,
+    firstname:null,
+    lastname:null,
+    bankname:null,
+    accountnumber:null,
+    accounttype:null,
+    branchcode:null,
     email: null,
     objectId: null,
     emailVerified: null
@@ -33,6 +39,12 @@ const Form = Record({
   isFetching: false,
   fields: new (Record({
     username: '',
+    firstname:'',
+    lastname:'',
+    bankname:'',
+    accountnumber:'',
+    accounttype:'',
+    branchcode:'',
     usernameHasError: false,
     usernameErrorMsg: '',
     email: '',

@@ -3,6 +3,7 @@ import firebase from 'firebase';
 import DeviceInfo from 'react-native-device-info';
 import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult, RemoteNotificationResult } from 'react-native-fcm';
 import { Platform } from 'react-native';
+import { Actions } from 'react-native-router-flux'
 
 export const addMessage = (msg) => ({
     type: 'ADD_MESSAGE',
@@ -10,23 +11,22 @@ export const addMessage = (msg) => ({
 });
 
 export const sendMessage = (text, user) => {
+    console.log('this is the message being sent', text)
+    console.log('this is the user', user)
     return function (dispatch) {
+    let m  = firebase.auth().currentUser;
         let msg = {
                 text: text,
                 time: Date.now(),
                 author: {
-                    name: user.name,
+                    name:m.email,
                     avatar: user.avatar
                 }
             };
-
-        const newMsgRef = firebase.database()
-                                  .ref('messages')
-                                  .push();
-        msg.id = newMsgRef.key;
-        newMsgRef.set(msg);
-
-        dispatch(addMessage(msg));
+    const newMsgRef= firebase.database().ref(`/users/${m.uid}/messages`).push();
+    msg.id = newMsgRef.key;
+    newMsgRef.set(msg);
+    dispatch(addMessage(msg));
     };
 };
 

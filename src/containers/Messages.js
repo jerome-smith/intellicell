@@ -16,8 +16,7 @@ const Messages = connect(
 )(({ messages, isFetching, dispatch }) => {
     if (isFetching) {
         return (
-            <View style={{paddingTop: 50,
-                          paddingBottom: 50}}>
+            <View style={{paddingTop: 50, paddingBottom: 50}}>
                 <Spinner />
             </View>
         )

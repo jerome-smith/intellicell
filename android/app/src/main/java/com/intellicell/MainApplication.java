@@ -3,6 +3,7 @@ package com.intellicell;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.evollu.react.fa.FIRAnalyticsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.reactnative.photoview.PhotoViewPackage;
 import cl.json.RNSharePackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FIRAnalyticsPackage(),
             new RNDeviceInfo(),
             new PhotoViewPackage(),
             new RNSharePackage(),

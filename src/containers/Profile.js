@@ -110,7 +110,7 @@ class Profile extends Component {
     this.errorAlert = new ErrorAlert()
     this.state = {
       formValues: {
-        username: '',
+        firstname: '',
         email: ''
       }
     }
@@ -123,8 +123,8 @@ class Profile extends Component {
    *
    */
   onChange (value) {
-    if (value.username !== '') {
-      this.props.actions.onProfileFormFieldChange('username', value.username)
+    if (value.firstname !== '') {
+      this.props.actions.onProfileFormFieldChange('firstname', value.firstname)
     }
     if (value.email !== '') {
       this.props.actions.onProfileFormFieldChange('email', value.email)
@@ -140,8 +140,8 @@ class Profile extends Component {
   componentWillReceiveProps (props) {
     this.setState({
       formValues: {
-        username: props.profile.form.fields.username,
-        email: props.profile.form.fields.email
+        firstname: this.props.global.currentUser.firstname,
+        email: this.props.global.currentUser.email
       }
     })
   }
@@ -153,18 +153,19 @@ class Profile extends Component {
    * form fields.  Otherwise, we need to go fetch the fields
    */
   componentDidMount () {
-    console.log('I am mounting component',this.props.global.currentUser.uid)
+    console.log('I am mounting component',this.props.global.currentUser)
     if (this.props.global.currentUser.uid) {
       this.props.actions.getProfile(this.props.global.currentUser)
     } else {
-      console.log('alert me when this is called', this.props)
+      console.log('alert me when this is called', this.props.profile)
       // get a ref then set it
-      // this.setState({
-      //   formValues: {
-      //     username: this.props.profile.form.fields.username,
-      //     email: this.props.profile.form.fields.email
-      //   }
-      // })
+      this.setState({
+        formValues: {
+          firstname: this.props.global.currentUser.firstname,
+          email: this.props.global.currentUser.email
+        }
+      })
+      console.log(this.state.formValues,'this is the formValues')
     }
   }
 
@@ -178,7 +179,7 @@ class Profile extends Component {
     let self = this
 
     let ProfileForm = t.struct({
-      username: t.String,
+      firstname: t.String,
       email: t.String
     })
     /**
@@ -188,12 +189,9 @@ class Profile extends Component {
     let options = {
       auto: 'placeholders',
       fields: {
-        username: {
-          label: 'username',//I18n.t('Profile.username'),
-          maxLength: 12,
+        firstname: {
+          label: 'Firstname',//I18n.t('Profile.username'),
           editable: !this.props.profile.form.isFetching,
-          hasError: this.props.profile.form.fields.usernameHasError,
-          error: this.props.profile.form.fields.usernameErrorMsg
         },
         email: {
           label: 'email',//I18n.t('Profile.email'),
@@ -214,7 +212,7 @@ class Profile extends Component {
     let onButtonPress = () => {
       this.props.actions.updateProfile(
         this.props.profile.form.originalProfile.objectId,
-        this.props.profile.form.fields.username,
+        this.props.profile.form.fields.firstname,
         this.props.profile.form.fields.email,
         this.props.global.currentUser)
     }

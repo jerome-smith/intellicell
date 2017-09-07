@@ -13,6 +13,7 @@
  * Necessary components from ReactNative
  */
 import React, { Component } from 'react'
+import FCM from 'react-native-fcm'
 import firebase from 'firebase'
 //import {I18n} from 'react-native-i18n'
 import I18n from 'i18n-js';
@@ -72,6 +73,7 @@ import ForgotPassword from './containers/ForgotPassword'
 import Profile from './containers/Profile'
 import Main from './containers/Main'
 import Subview from './containers/Subview'
+import Chat from './containers/Subview'
 
 /**
  * ### icons
@@ -111,7 +113,7 @@ var VERSION = pack.version
  * so this is created before we log in
  * @returns {Object} object with 4 keys
  */
-function getInitialState (a) {
+function getInitialState (a, b) {
   console.log(a, 'what is this')
   const _initState = {
     auth: new AuthInitialState(a),
@@ -166,10 +168,16 @@ export default function native (platform) {
           storageBucket: "intellicel-c9a74.appspot.com",
           messagingSenderId: "1043485647586"
         });
+        FCM.requestPermissions();
+          FCM.getFCMToken().then(token => {
+            console.log(token, 'this is the tokecn');
+          // this.setState({fcm_token:token});
+          // update your fcm token on server.
+        });
          this.loadedFire = firebase;
     }
     render () {
-      console.log(firebase);
+      console.log('this is FCM',FCM);
       const store = configureStore(getInitialState(firebase))
 
             // configureStore will combine reducers from intellicell and main application
@@ -236,6 +244,12 @@ export default function native (platform) {
                   iconName={'gear'}
                   hideNavBar
                   component={Profile} />
+                <Scene key='Chat'
+                  title='Chat'//{I18n.t('Intellicell.profile')}
+                  icon={TabIcon}
+                  iconName={'chat'}
+                  hideNavBar
+                  component={Chat} />
               </Scene>
             </Scene>
           </Router>

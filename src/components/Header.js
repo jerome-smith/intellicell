@@ -143,7 +143,7 @@ class Header extends Component {
       <View>
         <View style={styles.header}>
 
-          <TouchableHighlight onPress={this._onPressMark}>
+          <TouchableHighlight >
 
             <Image style={styles.mark}
               source={require('../images/Intellicell.png')}
